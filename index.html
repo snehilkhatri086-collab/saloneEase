@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SalonEase – Luxury Salon Management</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     NAVIGATION
+════════════════════════════════════════ -->
+<nav id="main-nav">
+  <div class="logo">Salon<span>Ease</span></div>
+  <div class="nav-links">
+    <a href="#" onclick="showPage('home')">Home</a>
+    <a href="#" onclick="showPage('services')">Services</a>
+    <a href="#" onclick="showPage('chairs')">Chairs</a>
+    <a href="#" onclick="showPage('booking')">Book Now</a>
+    <a href="#" onclick="showPage('client-portal')" class="nav-link-portal">My Bookings</a>
+    <a href="#" onclick="showPage('admin')" class="btn-nav">Admin ›</a>
+  </div>
+  <button class="nav-mobile-toggle" onclick="toggleMobileMenu()">☰</button>
+</nav>
+
+<!-- ════════════════════════════════════════
+     HOME PAGE
+════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+  <div class="hero-bg-orb orb1"></div>
+  <div class="hero-bg-orb orb2"></div>
+  <div class="hero-bg-orb orb3"></div>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-tag"><span class="tag-dot"></span>Premium Salon Experience</div>
+      <h1>Where Style<br>Meets <em>Luxury</em></h1>
+      <p class="hero-desc">
+        Experience world-class beauty treatments crafted for your comfort.
+        Book your appointment in seconds — manage your beauty journey effortlessly.
+      </p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('booking')">Book Appointment</button>
+        <button class="btn-outline" onclick="showPage('services')">Our Services</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num" id="hs-clients">2,400+</div>
+          <div class="stat-lbl">Happy Clients</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <div class="stat-num">12</div>
+          <div class="stat-lbl">Expert Stylists</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <div class="stat-num">8</div>
+          <div class="stat-lbl">Service Chairs</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="floating-badge badge-top">
+        <div class="fb-label">Today's Bookings</div>
+        <div class="fb-val" id="hero-booking-count">—</div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-head">
+          <span class="hero-card-title">Live Chair Status</span>
+          <span class="live-pill"><span class="live-dot"></span>Live</span>
+        </div>
+        <div class="hero-chairs-grid" id="hero-chairs-grid">
+          <!-- filled by JS -->
+        </div>
+        <div class="next-slot-bar">
+          <span class="ns-label">Next available</span>
+          <span class="ns-time" id="hero-next-slot">—</span>
+        </div>
+      </div>
+      <div class="floating-badge badge-bot">
+        <div class="fb-label">Satisfaction Rate</div>
+        <div class="fb-val">98%</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why choose us strip -->
+  <section class="features-strip">
+    <div class="feature-item">
+      <div class="fi-icon">📅</div>
+      <div class="fi-text">
+        <strong>Easy Online Booking</strong>
+        <span>Book any time, anywhere</span>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="fi-icon">💺</div>
+      <div class="fi-text">
+        <strong>Real-Time Chair View</strong>
+        <span>See what's available now</span>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="fi-icon">✉️</div>
+      <div class="fi-text">
+        <strong>Instant Confirmation</strong>
+        <span>Get your booking ID instantly</span>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="fi-icon">🛡️</div>
+      <div class="fi-text">
+        <strong>Secure Data</strong>
+        <span>Your info stays private</span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ════════════════════════════════════════
+     SERVICES PAGE
+════════════════════════════════════════ -->
+<div id="page-services" class="page">
+  <div class="page-hero-mini">
+    <div class="section-tag">✦ What We Offer</div>
+    <h2 class="section-title">Our <em>Signature</em> Services</h2>
+    <p class="section-sub">Discover our curated menu of beauty and wellness treatments, each designed to deliver exceptional results.</p>
+  </div>
+  <div class="section">
+    <div class="services-grid" id="services-grid"><!-- filled by JS --></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     CHAIRS PAGE
+════════════════════════════════════════ -->
+<div id="page-chairs" class="page">
+  <div class="page-hero-mini">
+    <div class="section-tag">✦ Real-Time Availability</div>
+    <h2 class="section-title">Service <em>Chairs</em></h2>
+    <p class="section-sub">View live chair availability. Green means ready for you right now.</p>
+  </div>
+  <div class="section">
+    <div class="chairs-layout">
+      <div class="salon-floor">
+        <div class="floor-header">
+          <div>
+            <div class="floor-title">Salon Floor — Ground Level</div>
+            <div class="floor-sub">8 premium styling chairs · <span id="chairs-updated">just now</span></div>
+          </div>
+          <div class="chair-legend">
+            <span class="leg-item available">Available</span>
+            <span class="leg-item occupied">Occupied</span>
+            <span class="leg-item reserved">Reserved</span>
+          </div>
+        </div>
+        <div class="chairs-floor-grid" id="chairs-floor-grid"><!-- filled by JS --></div>
+      </div>
+      <div class="chair-detail-panel" id="chair-detail-panel">
+        <div class="cdp-placeholder">
+          <div style="font-size:48px">💺</div>
+          <p>Select a chair to view details</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     BOOKING PAGE
+════════════════════════════════════════ -->
+<div id="page-booking" class="page">
+  <div class="page-hero-mini">
+    <div class="section-tag">✦ Easy Booking</div>
+    <h2 class="section-title">Reserve Your <em>Appointment</em></h2>
+    <p class="section-sub">Complete your booking in just a few simple steps. Instant confirmation guaranteed.</p>
+  </div>
+  <div class="section">
+    <div class="booking-layout">
+
+      <!-- Stepper Form -->
+      <div class="booking-form-wrap">
+        <!-- Steps Bar -->
+        <div class="steps-bar">
+          <div class="step-item active" id="si-1">
+            <div class="step-circle" id="sc-1">1</div>
+            <div class="step-name">Details</div>
+          </div>
+          <div class="step-track" id="st-1"></div>
+          <div class="step-item" id="si-2">
+            <div class="step-circle" id="sc-2">2</div>
+            <div class="step-name">Service</div>
+          </div>
+          <div class="step-track" id="st-2"></div>
+          <div class="step-item" id="si-3">
+            <div class="step-circle" id="sc-3">3</div>
+            <div class="step-name">Schedule</div>
+          </div>
+          <div class="step-track" id="st-3"></div>
+          <div class="step-item" id="si-4">
+            <div class="step-circle" id="sc-4">4</div>
+            <div class="step-name">Confirm</div>
+          </div>
+        </div>
+
+        <!-- Step 1 -->
+        <div class="form-step active" id="step-1">
+          <div class="step-heading">Your Details</div>
+          <div class="step-sub">We need a few details to set up your appointment</div>
+          <div class="form-row-2">
+            <div class="fg">
+              <label>First Name <span class="req">*</span></label>
+              <input type="text" id="f-fname" placeholder="Priya" />
+            </div>
+            <div class="fg">
+              <label>Last Name <span class="req">*</span></label>
+              <input type="text" id="f-lname" placeholder="Sharma" />
+            </div>
+          </div>
+          <div class="fg">
+            <label>Email Address <span class="req">*</span></label>
+            <input type="email" id="f-email" placeholder="priya@example.com" />
+          </div>
+          <div class="fg">
+            <label>Phone Number <span class="req">*</span></label>
+            <input type="tel" id="f-phone" placeholder="+91 98765 43210" />
+          </div>
+          <div class="fg">
+            <label>Special Notes</label>
+            <textarea id="f-notes" placeholder="Any preferences or special requests..."></textarea>
+          </div>
+          <div class="form-actions right">
+            <button class="btn-next" onclick="goStep(2)">Continue →</button>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="form-step" id="step-2">
+          <div class="step-heading">Choose Service</div>
+          <div class="step-sub">Select one or more treatments you'd like</div>
+          <div class="service-pills" id="service-pills"><!-- filled by JS --></div>
+          <div class="fg" style="margin-top:28px">
+            <label>Preferred Stylist</label>
+            <select id="f-stylist">
+              <option value="">No preference — assign best available</option>
+              <option>Aisha Khan</option>
+              <option>Sofia Reyes</option>
+              <option>Priti Verma</option>
+              <option>Meena Joshi</option>
+              <option>Radha Nair</option>
+            </select>
+          </div>
+          <div class="form-actions spread">
+            <button class="btn-back" onclick="goStep(1)">← Back</button>
+            <button class="btn-next" onclick="goStep(3)">Continue →</button>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="form-step" id="step-3">
+          <div class="step-heading">Date & Time</div>
+          <div class="step-sub">Choose your preferred appointment slot</div>
+          <div class="fg">
+            <label>Select Date <span class="req">*</span></label>
+            <input type="date" id="f-date" onchange="refreshTimeSlots()" />
+          </div>
+          <div class="fg">
+            <label>Available Time Slots <span class="req">*</span></label>
+            <div class="time-slots-grid" id="time-slots-grid"><!-- filled by JS --></div>
+          </div>
+          <div class="fg">
+            <label>Preferred Chair</label>
+            <select id="f-chair">
+              <option value="">Auto-assign best available chair</option>
+              <option>Chair 1</option><option>Chair 2</option><option>Chair 3</option>
+              <option>Chair 4</option><option>Chair 5</option><option>Chair 6</option>
+              <option>Chair 7</option><option>Chair 8</option>
+            </select>
+          </div>
+          <div class="form-actions spread">
+            <button class="btn-back" onclick="goStep(2)">← Back</button>
+            <button class="btn-next" onclick="goStep(4)">Review →</button>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="form-step" id="step-4">
+          <div class="step-heading">Review & Confirm</div>
+          <div class="step-sub">Verify your appointment details before confirming</div>
+          <div class="review-box" id="review-box"><!-- filled by JS --></div>
+          <div class="fg">
+            <label>Payment Method</label>
+            <select id="f-payment">
+              <option value="pay-at-salon">Pay at Salon (Cash/Card)</option>
+              <option value="upi">Online — UPI</option>
+              <option value="card">Online — Credit/Debit Card</option>
+              <option value="wallet">Online — Wallet</option>
+            </select>
+          </div>
+          <div class="form-actions spread">
+            <button class="btn-back" onclick="goStep(3)">← Back</button>
+            <button class="btn-confirm" onclick="submitBooking()">✓ Confirm Booking</button>
+          </div>
+        </div>
+
+        <!-- Confirmation screen -->
+        <div class="confirmation-screen" id="confirmation-screen">
+          <div class="conf-anim">🎉</div>
+          <h2 class="conf-title">Booking Confirmed!</h2>
+          <div class="conf-id" id="conf-id"></div>
+          <div class="conf-details-box" id="conf-details-box"></div>
+          <button class="btn-primary" style="margin-top:28px" onclick="resetBooking()">Book Another Appointment</button>
+          <button class="btn-outline" style="margin-top:12px" onclick="showPage('client-portal')">View My Bookings</button>
+        </div>
+      </div>
+
+      <!-- Live Summary Sidebar -->
+      <div class="booking-sidebar">
+        <div class="summary-card">
+          <div class="sc-title">Booking Summary</div>
+          <div class="sc-row"><span class="sc-lbl">Name</span><span class="sc-val" id="sum-name">—</span></div>
+          <div class="sc-row"><span class="sc-lbl">Email</span><span class="sc-val" id="sum-email">—</span></div>
+          <div class="sc-row"><span class="sc-lbl">Service(s)</span><span class="sc-val" id="sum-service">—</span></div>
+          <div class="sc-row"><span class="sc-lbl">Stylist</span><span class="sc-val" id="sum-stylist">—</span></div>
+          <div class="sc-row"><span class="sc-lbl">Date</span><span class="sc-val" id="sum-date">—</span></div>
+          <div class="sc-row"><span class="sc-lbl">Time</span><span class="sc-val" id="sum-time">—</span></div>
+          <div class="sc-row"><span class="sc-lbl">Chair</span><span class="sc-val" id="sum-chair">—</span></div>
+          <div class="sc-total">
+            <span>Estimated Total</span>
+            <span class="sc-price" id="sum-total">₹0</span>
+          </div>
+        </div>
+
+        <div class="summary-card" style="margin-top:20px">
+          <div class="sc-title" style="font-size:15px">Today's Availability</div>
+          <div class="avail-chart" id="avail-chart"><!-- filled by JS --></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     CLIENT PORTAL
+════════════════════════════════════════ -->
+<div id="page-client-portal" class="page">
+  <div class="page-hero-mini">
+    <div class="section-tag">✦ Your Bookings</div>
+    <h2 class="section-title">Client <em>Portal</em></h2>
+    <p class="section-sub">Look up your appointment history and upcoming bookings.</p>
+  </div>
+  <div class="section">
+    <div class="portal-layout">
+      <div class="portal-search-card">
+        <div class="step-heading">Find Your Bookings</div>
+        <div class="fg">
+          <label>Your Email Address</label>
+          <input type="email" id="portal-email" placeholder="Enter the email used during booking" />
+        </div>
+        <button class="btn-next" onclick="lookupClientBookings()" style="margin-top:16px;width:100%">Search Bookings</button>
+      </div>
+      <div class="portal-results" id="portal-results">
+        <div class="portal-placeholder">Enter your email above to view your bookings</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     ADMIN PAGE
+════════════════════════════════════════ -->
+<div id="page-admin" class="page admin-page">
+
+  <!-- Login -->
+  <div id="admin-login-wrap" class="admin-login-wrap">
+    <div class="admin-login-card">
+      <div class="adm-logo">Salon<span>Ease</span></div>
+      <div class="adm-sub">Administrator Portal</div>
+      <div class="afg">
+        <label>Username</label>
+        <input type="text" id="adm-user" placeholder="admin" />
+      </div>
+      <div class="afg">
+        <label>Password</label>
+        <input type="password" id="adm-pass" placeholder="••••••••" />
+      </div>
+      <div class="adm-hint">Default: admin / salon123</div>
+      <button class="btn-adm-login" onclick="adminLogin()">Access Dashboard →</button>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="admin-dashboard" class="admin-dashboard hidden">
+
+    <div class="adm-topbar">
+      <div class="adm-greeting">Welcome back, <span>Manager</span> 👋</div>
+      <div class="adm-topbar-right">
+        <button class="btn-adm-action" onclick="openAddAppointmentModal()">+ New Appointment</button>
+        <button class="btn-adm-logout" onclick="adminLogout()">Logout</button>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="adm-stats-row" id="adm-stats-row"><!-- filled by JS --></div>
+
+    <!-- Tabs -->
+    <div class="adm-tabs">
+      <button class="adm-tab active" onclick="switchAdmTab('appointments', this)">Appointments</button>
+      <button class="adm-tab" onclick="switchAdmTab('chairs', this)">Chair Management</button>
+      <button class="adm-tab" onclick="switchAdmTab('clients', this)">Client Records</button>
+      <button class="adm-tab" onclick="switchAdmTab('analytics', this)">Analytics</button>
+    </div>
+
+    <!-- Tab: Appointments -->
+    <div class="adm-tab-content active" id="adm-tab-appointments">
+      <div class="adm-card">
+        <div class="adm-card-header">
+          <div class="adm-card-title">All Appointments</div>
+          <div class="adm-filters">
+            <select id="adm-filter-status" onchange="renderAdminAppointments()">
+              <option value="all">All Status</option>
+              <option value="confirmed">Confirmed</option>
+              <option value="pending">Pending</option>
+              <option value="completed">Completed</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+            <input type="date" id="adm-filter-date" onchange="renderAdminAppointments()" placeholder="Filter by date" />
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="adm-table" id="adm-appt-table">
+            <thead>
+              <tr>
+                <th>ID</th><th>Client</th><th>Service</th>
+                <th>Date</th><th>Time</th><th>Chair</th>
+                <th>Stylist</th><th>Amount</th><th>Status</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="adm-appt-tbody"><!-- filled by JS --></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Chairs -->
+    <div class="adm-tab-content" id="adm-tab-chairs">
+      <div class="adm-card">
+        <div class="adm-card-header">
+          <div class="adm-card-title">Chair Management</div>
+          <button class="btn-adm-action small" onclick="refreshChairsDisplay()">↻ Refresh</button>
+        </div>
+        <div class="chairs-mgmt-grid" id="chairs-mgmt-grid"><!-- filled by JS --></div>
+      </div>
+    </div>
+
+    <!-- Tab: Clients -->
+    <div class="adm-tab-content" id="adm-tab-clients">
+      <div class="adm-card">
+        <div class="adm-card-header">
+          <div class="adm-card-title">Client Database</div>
+          <input type="text" id="adm-client-search" placeholder="Search by name or email..." oninput="renderAdminClients()" class="search-input" />
+        </div>
+        <div class="table-wrap">
+          <table class="adm-table">
+            <thead>
+              <tr><th>Name</th><th>Email</th><th>Phone</th><th>Total Bookings</th><th>Total Spent</th><th>Last Visit</th></tr>
+            </thead>
+            <tbody id="adm-clients-tbody"><!-- filled by JS --></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Analytics -->
+    <div class="adm-tab-content" id="adm-tab-analytics">
+      <div class="analytics-grid">
+        <div class="adm-card analytics-card">
+          <div class="adm-card-title">Revenue Overview</div>
+          <div class="revenue-chart-wrap" id="revenue-chart"><!-- filled by JS --></div>
+        </div>
+        <div class="adm-card analytics-card">
+          <div class="adm-card-title">Popular Services</div>
+          <div id="popular-services-list"><!-- filled by JS --></div>
+        </div>
+        <div class="adm-card analytics-card wide">
+          <div class="adm-card-title">Booking Trends (Last 7 Days)</div>
+          <div class="bar-chart-wrap" id="booking-bar-chart"><!-- filled by JS --></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /admin-dashboard -->
+</div>
+
+<!-- ════════════════════════════════════════
+     MODALS
+════════════════════════════════════════ -->
+
+<!-- Edit Appointment Modal -->
+<div class="modal-overlay" id="modal-edit-appt">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-edit-appt')">✕</button>
+    <div class="modal-title">Edit Appointment</div>
+    <input type="hidden" id="modal-appt-id" />
+    <div class="fg">
+      <label>Client Name</label>
+      <input type="text" id="modal-client" readonly style="opacity:.5" />
+    </div>
+    <div class="form-row-2">
+      <div class="fg">
+        <label>Date</label>
+        <input type="date" id="modal-date" />
+      </div>
+      <div class="fg">
+        <label>Time</label>
+        <input type="time" id="modal-time" />
+      </div>
+    </div>
+    <div class="form-row-2">
+      <div class="fg">
+        <label>Chair</label>
+        <select id="modal-chair">
+          <option>Chair 1</option><option>Chair 2</option><option>Chair 3</option>
+          <option>Chair 4</option><option>Chair 5</option><option>Chair 6</option>
+          <option>Chair 7</option><option>Chair 8</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Stylist</label>
+        <select id="modal-stylist">
+          <option>Aisha Khan</option><option>Sofia Reyes</option>
+          <option>Priti Verma</option><option>Meena Joshi</option><option>Radha Nair</option>
+        </select>
+      </div>
+    </div>
+    <div class="fg">
+      <label>Status</label>
+      <select id="modal-status">
+        <option value="confirmed">Confirmed</option>
+        <option value="pending">Pending</option>
+        <option value="completed">Completed</option>
+        <option value="cancelled">Cancelled</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label>Admin Notes</label>
+      <textarea id="modal-admin-notes" placeholder="Internal notes..."></textarea>
+    </div>
+    <div class="form-actions spread" style="margin-top:8px">
+      <button class="btn-back" onclick="closeModal('modal-edit-appt')">Cancel</button>
+      <button class="btn-next" onclick="saveEditedAppointment()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Appointment Modal -->
+<div class="modal-overlay" id="modal-add-appt">
+  <div class="modal modal-wide">
+    <button class="modal-close" onclick="closeModal('modal-add-appt')">✕</button>
+    <div class="modal-title">New Appointment</div>
+    <div class="form-row-2">
+      <div class="fg"><label>Client Name <span class="req">*</span></label><input type="text" id="ma-name" placeholder="Full Name" /></div>
+      <div class="fg"><label>Email <span class="req">*</span></label><input type="email" id="ma-email" placeholder="email@example.com" /></div>
+    </div>
+    <div class="form-row-2">
+      <div class="fg"><label>Phone</label><input type="tel" id="ma-phone" placeholder="+91..." /></div>
+      <div class="fg"><label>Service <span class="req">*</span></label>
+        <select id="ma-service">
+          <option value="">Select service...</option>
+          <option value="Hair Cut &amp; Style|800">Hair Cut &amp; Style — ₹800</option>
+          <option value="Hair Color|1500">Hair Color — ₹1,500</option>
+          <option value="Spa Treatment|2000">Spa Treatment — ₹2,000</option>
+          <option value="Bridal Makeup|4500">Bridal Makeup — ₹4,500</option>
+          <option value="Nail Art|600">Nail Art — ₹600</option>
+          <option value="Keratin Treatment|3200">Keratin Treatment — ₹3,200</option>
+          <option value="Eyebrow Threading|150">Eyebrow Threading — ₹150</option>
+          <option value="Facial &amp; Cleanup|1200">Facial &amp; Cleanup — ₹1,200</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row-2">
+      <div class="fg"><label>Date <span class="req">*</span></label><input type="date" id="ma-date" /></div>
+      <div class="fg"><label>Time <span class="req">*</span></label><input type="time" id="ma-time" /></div>
+    </div>
+    <div class="form-row-2">
+      <div class="fg"><label>Chair</label>
+        <select id="ma-chair">
+          <option value="Chair 1">Chair 1</option><option value="Chair 2">Chair 2</option>
+          <option value="Chair 3">Chair 3</option><option value="Chair 4">Chair 4</option>
+          <option value="Chair 5">Chair 5</option><option value="Chair 6">Chair 6</option>
+          <option value="Chair 7">Chair 7</option><option value="Chair 8">Chair 8</option>
+        </select>
+      </div>
+      <div class="fg"><label>Stylist</label>
+        <select id="ma-stylist">
+          <option>Aisha Khan</option><option>Sofia Reyes</option>
+          <option>Priti Verma</option><option>Meena Joshi</option><option>Radha Nair</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-actions spread" style="margin-top:8px">
+      <button class="btn-back" onclick="closeModal('modal-add-appt')">Cancel</button>
+      <button class="btn-confirm" onclick="addAppointmentFromAdmin()">Add Appointment</button>
+    </div>
+  </div>
+</div>
+
+<!-- Chair Edit Modal -->
+<div class="modal-overlay" id="modal-edit-chair">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-edit-chair')">✕</button>
+    <div class="modal-title">Edit Chair</div>
+    <input type="hidden" id="mc-chair-id" />
+    <div class="fg"><label>Chair Label</label><input type="text" id="mc-label" /></div>
+    <div class="fg"><label>Assigned Stylist</label>
+      <select id="mc-stylist">
+        <option>Aisha Khan</option><option>Sofia Reyes</option>
+        <option>Priti Verma</option><option>Meena Joshi</option>
+        <option>Radha Nair</option><option>Unassigned</option>
+      </select>
+    </div>
+    <div class="fg"><label>Status</label>
+      <select id="mc-status">
+        <option value="available">Available</option>
+        <option value="occupied">Occupied</option>
+        <option value="reserved">Reserved</option>
+        <option value="maintenance">Maintenance</option>
+      </select>
+    </div>
+    <div class="form-actions spread">
+      <button class="btn-back" onclick="closeModal('modal-edit-chair')">Cancel</button>
+      <button class="btn-next" onclick="saveChairEdit()">Save Chair</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Salon<span>Ease</span></div>
+    <div class="footer-tagline">Crafted with care for your beauty experience</div>
+    <div class="footer-links">
+      <a href="#" onclick="showPage('home')">Home</a>
+      <a href="#" onclick="showPage('services')">Services</a>
+      <a href="#" onclick="showPage('booking')">Book Now</a>
+      <a href="#" onclick="showPage('client-portal')">My Bookings</a>
+    </div>
+    <div class="footer-copy">© 2025 SalonEase · All rights reserved</div>
+  </div>
+</footer>
+
+<script src="database.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
